@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  RiExchangeLine,
+  RiUserLine,
+  RiMailLine,
+  RiLockLine,
+  RiEyeLine,
+  RiEyeOffLine,
+} from "react-icons/ri";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
-import { RiExchangeLine } from "react-icons/ri";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -12,85 +19,236 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Add form validation and API request
-    console.log(formData);
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      console.log(formData);
+      setIsSubmitting(false);
+    }, 1500);
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg"
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="bg-white p-8 sm:p-10 rounded-3xl shadow-xl w-full max-w-md border border-opacity-10 border-white backdrop-blur-sm"
       >
-        <div className="flex flex-col items-center mb-6">
-          <div className="flex items-center text-blue-600 text-3xl font-extrabold mb-2">
-            <RiExchangeLine className="mr-2" />
-            SkillSwap
-          </div>
-          <p className="text-gray-500">
-            Join and start exchanging skills today
-          </p>
+        {/* Logo and Title */}
+        <div className="flex flex-col items-center mb-8">
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center text-blue-600 text-3xl font-extrabold mb-3"
+          >
+            <RiExchangeLine className="mr-2 transform rotate-45" />
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              SkillSwap
+            </span>
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-gray-500 text-center text-sm"
+          >
+            Join our community and start exchanging skills today
+          </motion.p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <Input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-
-          <Button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg rounded-xl"
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
           >
-            Create Account
-          </Button>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 pl-1">
+              Full Name
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <RiUserLine className="text-gray-400" />
+              </div>
+              <Input
+                type="text"
+                name="name"
+                placeholder="John Doe"
+                value={formData.name}
+                onChange={handleChange}
+                className="pl-10"
+                required
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+          >
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 pl-1">
+              Email Address
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <RiMailLine className="text-gray-400" />
+              </div>
+              <Input
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                className="pl-10"
+                required
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 pl-1">
+              Password
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <RiLockLine className="text-gray-400" />
+              </div>
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={handleChange}
+                className="pl-10 pr-10"
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <RiEyeOffLine className="text-gray-400 hover:text-gray-600" />
+                ) : (
+                  <RiEyeLine className="text-gray-400 hover:text-gray-600" />
+                )}
+              </button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+          >
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 pl-1">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <RiLockLine className="text-gray-400" />
+              </div>
+              <Input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Re-enter password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="pl-10 pr-10"
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? (
+                  <RiEyeOffLine className="text-gray-400 hover:text-gray-600" />
+                ) : (
+                  <RiEyeLine className="text-gray-400 hover:text-gray-600" />
+                )}
+              </button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+          >
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+              disabled={isSubmitting}
+            >
+              <AnimatePresence mode="wait">
+                {isSubmitting ? (
+                  <motion.span
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center justify-center"
+                  >
+                    <motion.span
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="inline-block h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"
+                    />
+                    Creating Account...
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="text"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    Create Account
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </Button>
+          </motion.div>
         </form>
 
-        <p className="text-sm text-center mt-6 text-gray-600">
+        {/* Footer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="text-sm text-center mt-8 text-gray-600"
+        >
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-blue-600 hover:underline font-medium"
+            className="text-blue-600 hover:text-blue-700 font-medium hover:underline underline-offset-2 transition-colors"
           >
             Log in
           </Link>
-        </p>
+        </motion.p>
       </motion.div>
     </section>
   );
