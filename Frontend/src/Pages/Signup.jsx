@@ -39,12 +39,12 @@ const Signup = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 flex items-center justify-center px-4 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-white/70 backdrop-blur-md border border-white/30 p-8 sm:p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] w-full max-w-md"
+        className="bg-white/80 backdrop-blur-md border border-blue-100 p-8 sm:p-10 rounded-3xl shadow-lg w-full max-w-md"
       >
         {/* Logo and Title */}
         <div className="flex flex-col items-center mb-8">
@@ -52,10 +52,10 @@ const Signup = () => {
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center text-blue-600 text-3xl font-extrabold mb-3"
+            className="flex items-center text-blue-600 text-3xl font-extrabold mb-2"
           >
             <RiExchangeLine className="mr-2 transform rotate-45" />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
               SkillSwap
             </span>
           </motion.div>
@@ -69,7 +69,7 @@ const Signup = () => {
           </motion.p>
         </div>
 
-        {/* Signup Form */}
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <motion.div
@@ -82,7 +82,7 @@ const Signup = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <RiUserLine className="text-gray-400" />
+                <RiUserLine className="text-blue-400" />
               </div>
               <Input
                 type="text"
@@ -90,7 +90,7 @@ const Signup = () => {
                 placeholder="John Doe"
                 value={formData.name}
                 onChange={handleChange}
-                className="pl-10 w-full"
+                className="pl-10 w-full border-blue-200 focus:ring-blue-500"
                 required
               />
             </div>
@@ -107,7 +107,7 @@ const Signup = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <RiMailLine className="text-gray-400" />
+                <RiMailLine className="text-blue-400" />
               </div>
               <Input
                 type="email"
@@ -115,7 +115,7 @@ const Signup = () => {
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="pl-10 w-full"
+                className="pl-10 w-full border-blue-200 focus:ring-blue-500"
                 required
               />
             </div>
@@ -132,7 +132,7 @@ const Signup = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <RiLockLine className="text-gray-400" />
+                <RiLockLine className="text-blue-400" />
               </div>
               <Input
                 type={showPassword ? "text" : "password"}
@@ -140,7 +140,7 @@ const Signup = () => {
                 placeholder="Enter password"
                 value={formData.password}
                 onChange={handleChange}
-                className="pl-10 pr-10 w-full"
+                className="pl-10 pr-10 w-full border-blue-200 focus:ring-blue-500"
                 required
               />
               <button
@@ -168,7 +168,7 @@ const Signup = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <RiLockLine className="text-gray-400" />
+                <RiLockLine className="text-blue-400" />
               </div>
               <Input
                 type={showConfirmPassword ? "text" : "password"}
@@ -176,7 +176,7 @@ const Signup = () => {
                 placeholder="Re-enter password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="pl-10 pr-10 w-full"
+                className="pl-10 pr-10 w-full border-blue-200 focus:ring-blue-500"
                 required
               />
               <button

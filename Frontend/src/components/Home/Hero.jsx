@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/Button";
 
 const images = ["/images/hero1.jpg", "/images/hero2.jpg", "/images/hero3.jpg"];
@@ -9,14 +9,21 @@ const images = ["/images/hero1.jpg", "/images/hero2.jpg", "/images/hero3.jpg"];
 const Hero = () => {
   const sliderRef = useRef(null);
   const timeout = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderInstanceRef, slider] = useKeenSlider({
     loop: true,
     renderMode: "performance",
     slides: { perView: 1 },
     created: () => nextTimeout(),
-    animationEnded: () => nextTimeout(),
-    updated: () => nextTimeout(),
+    animationEnded: (s) => {
+      setCurrentSlide(s.track.details.rel);
+      nextTimeout();
+    },
+    updated: (s) => {
+      setCurrentSlide(s.track.details.rel);
+      nextTimeout();
+    },
   });
 
   const nextTimeout = () => {
@@ -32,28 +39,21 @@ const Hero = () => {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Slider Container */}
-      <div
-        ref={(ref) => {
-          sliderRef.current = ref;
-          sliderInstanceRef(ref);
-        }}
-        className="keen-slider absolute top-0 left-0 w-full h-full z-0"
-      >
-        {images.map((img, index) => (
-          <div key={index} className="keen-slider__slide w-full h-full">
-            <img
-              src={img}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+      {/* Animated Background Image */}
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={images[currentSlide]}
+          src={images[currentSlide]}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
+      </AnimatePresence>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60 z-10" />
+      {/* Overlay (better readability) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 backdrop-blur-sm z-10" />
 
       {/* Foreground Content */}
       <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-6">
@@ -61,7 +61,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight drop-shadow"
+          className="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight drop-shadow-xl"
         >
           <span className="text-blue-300">Learn</span> New Skills.{" "}
           <span className="text-blue-300">Share</span> What You Know.
