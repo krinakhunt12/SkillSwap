@@ -19,6 +19,7 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +32,6 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
     setTimeout(() => {
       console.log(formData);
       setIsSubmitting(false);
@@ -39,12 +39,12 @@ const Signup = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 flex items-center justify-center px-4 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-white p-8 sm:p-10 rounded-3xl shadow-xl w-full max-w-md border border-opacity-10 border-white backdrop-blur-sm"
+        className="bg-white/70 backdrop-blur-md border border-white/30 p-8 sm:p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] w-full max-w-md"
       >
         {/* Logo and Title */}
         <div className="flex flex-col items-center mb-8">
@@ -63,14 +63,15 @@ const Signup = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-gray-500 text-center text-sm"
+            className="text-gray-600 text-sm text-center"
           >
-            Join our community and start exchanging skills today
+            Join our community and start exchanging skills today.
           </motion.p>
         </div>
 
-        {/* Form */}
+        {/* Signup Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,12 +90,13 @@ const Signup = () => {
                 placeholder="John Doe"
                 value={formData.name}
                 onChange={handleChange}
-                className="pl-10"
+                className="pl-10 w-full"
                 required
               />
             </div>
           </motion.div>
 
+          {/* Email */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,12 +115,13 @@ const Signup = () => {
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="pl-10"
+                className="pl-10 w-full"
                 required
               />
             </div>
           </motion.div>
 
+          {/* Password */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -137,7 +140,7 @@ const Signup = () => {
                 placeholder="Enter password"
                 value={formData.password}
                 onChange={handleChange}
-                className="pl-10 pr-10"
+                className="pl-10 pr-10 w-full"
                 required
               />
               <button
@@ -154,6 +157,7 @@ const Signup = () => {
             </div>
           </motion.div>
 
+          {/* Confirm Password */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -172,7 +176,7 @@ const Signup = () => {
                 placeholder="Re-enter password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="pl-10 pr-10"
+                className="pl-10 pr-10 w-full"
                 required
               />
               <button
@@ -189,6 +193,7 @@ const Signup = () => {
             </div>
           </motion.div>
 
+          {/* Submit Button */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -244,7 +249,7 @@ const Signup = () => {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-blue-600 hover:text-blue-700 font-medium hover:underline underline-offset-2 transition-colors"
+            className="text-blue-600 hover:text-blue-700 font-medium underline underline-offset-2 transition"
           >
             Log in
           </Link>

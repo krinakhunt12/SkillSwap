@@ -12,10 +12,7 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -30,7 +27,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate authentication
     setTimeout(() => {
       console.log(credentials);
       setIsSubmitting(false);
@@ -38,14 +34,14 @@ const Login = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 flex items-center justify-center px-4 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-white p-8 sm:p-10 rounded-3xl shadow-xl w-full max-w-md border border-opacity-10 border-white backdrop-blur-sm"
+        className="bg-white/70 backdrop-blur-md border border-white/30 p-8 sm:p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] w-full max-w-md"
       >
-        {/* Logo and Title */}
+        {/* Logo & Heading */}
         <div className="flex flex-col items-center mb-8">
           <motion.div
             initial={{ scale: 0.9 }}
@@ -62,13 +58,13 @@ const Login = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-gray-500 text-sm"
+            className="text-gray-600 text-sm"
           >
-            Welcome back! Please log in to continue
+            Welcome back! Please log in to continue.
           </motion.p>
         </div>
 
-        {/* Form */}
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -88,7 +84,7 @@ const Login = () => {
                 placeholder="example@email.com"
                 value={credentials.email}
                 onChange={handleChange}
-                className="pl-10"
+                className="pl-10 w-full"
                 required
               />
             </div>
@@ -112,7 +108,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={credentials.password}
                 onChange={handleChange}
-                className="pl-10 pr-10"
+                className="pl-10 pr-10 w-full"
                 required
               />
               <button
@@ -138,7 +134,6 @@ const Login = () => {
             <div className="flex items-center">
               <input
                 id="remember-me"
-                name="remember-me"
                 type="checkbox"
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
@@ -214,7 +209,12 @@ const Login = () => {
           className="relative my-6"
         >
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.6 }}
+              className="w-full border-t border-gray-300"
+            />
           </div>
           <div className="relative flex justify-center text-sm">
             <span className="px-2 bg-white text-gray-500">
@@ -223,7 +223,7 @@ const Login = () => {
           </div>
         </motion.div>
 
-        {/* Social Login */}
+        {/* Social Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -232,10 +232,10 @@ const Login = () => {
         >
           <button
             type="button"
-            className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+            className="w-full inline-flex items-center justify-center py-2 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
           >
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 mr-2"
               fill="currentColor"
               viewBox="0 0 20 20"
               aria-hidden="true"
@@ -246,14 +246,14 @@ const Login = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="ml-2">GitHub</span>
+            GitHub
           </button>
           <button
             type="button"
-            className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+            className="w-full inline-flex items-center justify-center py-2 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
           >
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 mr-2"
               fill="currentColor"
               viewBox="0 0 20 20"
               aria-hidden="true"
@@ -264,7 +264,7 @@ const Login = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="ml-2">Google</span>
+            Google
           </button>
         </motion.div>
 
@@ -275,10 +275,10 @@ const Login = () => {
           transition={{ delay: 1.3 }}
           className="text-sm text-center mt-8 text-gray-600"
         >
-          Don't have an account?{" "}
+          Don’t have an account?{" "}
           <Link
             to="/signup"
-            className="text-blue-600 hover:text-blue-700 font-medium hover:underline underline-offset-2 transition-colors"
+            className="text-blue-600 hover:text-blue-700 font-medium underline underline-offset-2 transition"
           >
             Sign up
           </Link>
