@@ -13,7 +13,6 @@ const UserDashboard = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    // Simulated fetch
     setSessions([
       {
         id: 1,
@@ -48,30 +47,33 @@ const UserDashboard = () => {
   }, []);
 
   return (
-    <section className="p-6 sm:p-10 bg-gray-50 min-h-screen">
+    <section className="p-6 sm:p-10 bg-gradient-to-br from-white to-blue-50 min-h-screen">
       <motion.h1
-        className="text-3xl font-bold text-blue-700 mb-6"
-        initial={{ opacity: 0, y: -10 }}
+        className="text-4xl font-bold text-blue-800 mb-10 text-center"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
         Welcome to Your Dashboard
       </motion.h1>
 
       {/* Upcoming Sessions */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+      <div className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <IoMdTime className="mr-2 text-blue-600" />
           Upcoming Sessions
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {sessions.map((session) => (
-            <Card key={session.id} className="border-l-4 border-blue-600">
+            <Card
+              key={session.id}
+              className="border-l-4 border-blue-600 bg-white shadow hover:shadow-md transition-all duration-200"
+            >
               <CardContent>
-                <p className="font-medium text-gray-700">
+                <p className="font-medium text-gray-800">
                   With <span className="text-blue-700">{session.partner}</span>
                 </p>
-                <p>{session.topic}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-gray-600">{session.topic}</p>
+                <p className="text-sm text-gray-500 mt-1">
                   {session.date} at {session.time}
                 </p>
               </CardContent>
@@ -81,26 +83,30 @@ const UserDashboard = () => {
       </div>
 
       {/* Skills */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+      <div className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <FaChalkboardTeacher className="mr-2 text-green-600" />
           Your Skills
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Card>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="bg-white shadow hover:shadow-md transition">
             <CardContent>
-              <h3 className="font-semibold text-blue-600 mb-1">Offering</h3>
-              <ul className="list-disc list-inside text-gray-700">
+              <h3 className="font-semibold text-blue-600 mb-2 text-lg">
+                Offering
+              </h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
                 {skills.offering.map((skill, idx) => (
                   <li key={idx}>{skill}</li>
                 ))}
               </ul>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white shadow hover:shadow-md transition">
             <CardContent>
-              <h3 className="font-semibold text-blue-600 mb-1">Seeking</h3>
-              <ul className="list-disc list-inside text-gray-700">
+              <h3 className="font-semibold text-blue-600 mb-2 text-lg">
+                Seeking
+              </h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
                 {skills.seeking.map((skill, idx) => (
                   <li key={idx}>{skill}</li>
                 ))}
@@ -111,18 +117,24 @@ const UserDashboard = () => {
       </div>
 
       {/* Reviews */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+      <div className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <FaStar className="mr-2 text-yellow-500" />
           Reviews Received
         </h2>
         <div className="space-y-4">
           {reviews.map((review) => (
-            <Card key={review.id}>
+            <Card
+              key={review.id}
+              className="bg-white shadow hover:shadow-md transition"
+            >
               <CardContent>
                 <p className="text-gray-800 font-medium">{review.text}</p>
                 <div className="text-sm text-gray-500 mt-1">
-                  — {review.from} ({"⭐".repeat(review.rating)})
+                  — {review.from}{" "}
+                  <span className="text-yellow-400 ml-1">
+                    {"⭐".repeat(review.rating)}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -132,13 +144,12 @@ const UserDashboard = () => {
 
       {/* Calendar */}
       <div>
-        <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <FaCalendarAlt className="mr-2 text-indigo-600" />
           Calendar View
         </h2>
-        <div className="p-6 border border-gray-300 rounded-xl text-gray-500 text-center">
-          {/* Replace this with a calendar component if needed */}
-          📅 Calendar integration coming soon!
+        <div className="p-10 border-2 border-dashed border-indigo-300 rounded-xl bg-white text-gray-500 text-center shadow-sm">
+          📅 <span className="italic">Calendar integration coming soon!</span>
         </div>
       </div>
     </section>
